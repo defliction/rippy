@@ -18,6 +18,7 @@
     let qrCode2
     let qrRef = null
     let svg_container;
+    let txnConfirmed = false
     //const element = document.getElementById('qr-code');
   
     let sol_rpc = "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
@@ -55,11 +56,21 @@
         const interval = setInterval(async () => {
             try {
                 // Check if there is any transaction for the reference
-                const signatureInfo = await findReference(connection, reference, { until: $mostRecentTxn });
-
+                let untilTxn = undefined
+                if ($mostRecentTxn != "") {
+                    untilTxn = $mostRecentTxn
+                }
+                const signatureInfo = await findReference(connection, reference, { until: untilTxn });
+                if (signatureInfo.confirmationStatus == "finalized" || signatureInfo.confirmationStatus == "confirmed") {
+                    txnConfirmed = true
+                }
+                
                 console.log('Transaction confirmed', signatureInfo);
                 //notify({ type: 'success', message: 'Transaction confirmed', txid: signatureInfo.signature });
                 $mostRecentTxn = signatureInfo.signature;
+               
+
+                
             } catch (e) {
                 if (e instanceof FindReferenceError) {
                 // No transaction found yet, ignore this error
@@ -67,7 +78,7 @@
                 }
                 console.error('Unknown error', e)
             }
-            }, 500)
+            }, 250)
             return () => {
             clearInterval(interval)
         }
@@ -99,10 +110,17 @@
 <div class="grid grid-flow-row justify-center pt-5 gap-3">
     <div class="indicator justify-items-center place-self-center">
         <div class="">
+            {#if !txnConfirmed}
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               Awaiting Payment Confirmation
+            {:else}
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Transaction Confirmed!
+            {/if}
         </div>
     </div>
 </div>
@@ -112,7 +130,7 @@
             <button on:click={cancel} class="btn normal-case btn-lg bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-6 h-6 ">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
               </svg>
-                 <span class="pl-2">Return</span></button>
+            <span class="pl-2">{txnConfirmed? "Return" : "Cancel"}</span></button>
         </div>
     </div>
 
