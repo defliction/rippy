@@ -101,10 +101,10 @@
         keysEnterText: 'Enter',
 
         // The callback function of the Enter key. This function will be called when the enter key has been clicked.
-        keysEnterCallback: undefined,
+        keysEnterCallback: createStore,
 
         // The Enter key can close and remove the keyboard. Prevented when "false"
-        keysEnterCanClose: false,
+        keysEnterCanClose: true,
         });
 
         KioskBoard.run('.js-virtual-keyboard');
@@ -119,6 +119,7 @@
     })
     async function createStore() {
         goto('/present', { state: { foo: 'bar' } });
+        
         
     }
 
