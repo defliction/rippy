@@ -110,7 +110,7 @@
         
     })
     onDestroy(async ()=> {
-        document.body.setAttribute('tabindex', '-1');
+        //document.body.setAttribute('tabindex', '-1');
        
     })
     async function createStore() {
