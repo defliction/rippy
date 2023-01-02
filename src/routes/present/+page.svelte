@@ -39,7 +39,7 @@
         let url = ($publicKey) ? encodeURL({ recipient, amount, splToken, reference, label, message, memo }) : null;
         
         try {
-            qrCode = createQR(url, 256, 'transparent')
+            qrCode = createQR(url, 360, 'transparent')
            // qrCode2 = qrCode._svg.innerHTML
             const element = document.getElementById('qr-code');
             qrCode.append(element);
@@ -82,7 +82,10 @@
 <div class="grid grid-flow-row justify-center pt-5 gap-3">
     <div class="indicator justify-items-center place-self-center">
         <div class="">
-            <button on:click={cancel} class="btn normal-case btn-lg btn-primary">Cancel</button>
+            <button on:click={cancel} class="btn normal-case btn-lg bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-6 h-6 ">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3" />
+              </svg>
+                 <span class="pl-2">Return</span></button>
         </div>
     </div>
 

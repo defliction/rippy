@@ -22,7 +22,7 @@
 
 <div class="grid grid-flow-row justify-center">
     
-    <h1 class="sm:pt-3 pt-1 font-greycliffbold text-4xl text-center text-[#0D7071] ">
+    <h1 class="sm:pt-3 pt-1 outline font-greycliffbold text-4xl text-center text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">
         rippy</h1>
   
 </div>
@@ -32,11 +32,11 @@
         
         <div class="card w-96 bg-base-200 shadow border">
             <div class="card-body px-6 pb-4">
-                <h1 class="card-title text-md align-bottom font-greycliffbold -mt-5 pb-1 text-[#0D7071] ">Enter your merchant details</h1>
+                <h1 class="card-title text-md align-bottom font-greycliffbold -mt-5 pb-1 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Enter your merchant details</h1>
                 <input bind:value={$storeName} type="text" placeholder="Store name e.g. Benedict's Burritos" class="input input-sm input-bordered input-accent w-full max-w-xs" /> 
                 <input bind:value={$publicKey} type="text" placeholder="Merchant wallet address (Solana Public Key)" class="input input-sm input-bordered input-accent w-full max-w-xs" />    
                 <div class="card-actions justify-end">
-                    <button on:click={createStore} class="btn normal-case btn-xs btn-primary">Create Store</button>
+                    <button on:click={createStore} class="btn normal-case btn-xs bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]">Create Store</button>
                   </div>
             </div>
         </div>
