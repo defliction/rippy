@@ -36,7 +36,7 @@
                 <input bind:value={$storeName} type="text" placeholder="Store name e.g. Benedict's Burritos" class="input input-sm input-bordered input-accent w-full max-w-xs" /> 
                 <input bind:value={$publicKey} type="text" placeholder="Merchant wallet address (Solana Public Key)" class="input input-sm input-bordered input-accent w-full max-w-xs" />    
                 <div class="card-actions justify-end">
-                    <button on:click={createStore} class="btn normal-case btn-xs btn-primary"><a href="/store">Create Store</a></button>
+                    <button on:click={createStore} class="btn normal-case btn-xs btn-primary">Create Store</button>
                   </div>
             </div>
         </div>

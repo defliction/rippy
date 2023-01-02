@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@solana/pay": "^0.2.4",
 		"daisyui": "^2.46.0",
+		"focus-svelte": "^0.3.4",
 		"kioskboard": "^2.3.0"
 	}
 }
