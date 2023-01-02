@@ -1,30 +1,69 @@
 <script lang='ts'>
     import { onMount, onDestroy } from "svelte";
     import * as web3 from '@solana/web3.js';
-    import { storeName, publicKey } from '../stores.js';
+    import { createQR, encodeURL} from "@solana/pay"
+    import { storeName, publicKey, pmtAmt } from '../stores.js';
     import * as KioskBoard from 'kioskboard';
     import englishKeypbad from "../../keyboards/kioskboard-keys-english.json"
 	import { Focus } from "focus-svelte";
     import { goto } from '$app/navigation';
+    import QRCodeStyling from '@solana/qr-code-styling'
+    import BigNumber from 'bignumber.js';
+    import InlineSVG from 'svelte-inline-svg'
+    import card_svg from './card.svg'
 
     let cnx;
     let keyboardRef = null;
+    let qrCode
+    let qrCode2
+    let qrRef = null
+    let svg_container;
+    //const element = document.getElementById('qr-code');
+  
 
+    const splToken = new web3.PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
+    const reference = web3.Keypair.generate().publicKey;
+
+    const label = 'Payment to ' + {$storeName};
+    const message = 'marked for future use';
+    const memo = 'marked for future use';
 
     onMount(async () => {
         
         let sol_rpc = "https://withered-distinguished-pallet.solana-mainnet.quiknode.pro/f98c9d657e37a766115f45e72eaef0bc5836f7f6/";
         cnx = new web3.Connection(sol_rpc);
        
-        cnx.focus()
+        
+        let recipient = new web3.PublicKey($publicKey)
+        let amount = new BigNumber($pmtAmt);
+        let url = ($publicKey) ? encodeURL({ recipient, amount, splToken, reference, label, message, memo }) : null;
+        
+        try {
+            qrCode = createQR(url, 256, 'transparent')
+           // qrCode2 = qrCode._svg.innerHTML
+            const element = document.getElementById('qr-code');
+            qrCode.append(element);
+            console.log(qrCode)
+            //console.log(await qrCode.getRawData())
+            //()
+        }
+        catch (e) {
+           // qrCode = null
+            qrCode._svg = ""
+            console.log("error making QR ", e)
+           
+        }
+       
+        //qrCode2 =decodeURIComponent(qrCode.toString()).replace('data:image/svg+xml,', '')
+        
     })
     onDestroy(async ()=> {
         //document.body.setAttribute('tabindex', '-1');
-       
+       // <img src={qrCode._qr.createDataURL()}/>
+      // <svg width=512 height=512 viewBox="-1 -1 2 2" bind:this={qrCode}/>
     })
     async function cancel() {
         goto('/store', { state: { foo: 'bar' } });
-        
     }
 
 </script>
@@ -33,11 +72,11 @@
     
     <h1 class="sm:pt-3 pt-1 font-greycliffbold text-4xl text-center text-[#0D7071] ">
         {$storeName}</h1>
-        <div class="border border-[#0D7071] ">
-            
-          
+        <div id="qr-code" >
+            <qrCode/>
         </div>
         
+  
 </div>
 
 <div class="grid grid-flow-row justify-center pt-5 gap-3">
@@ -48,3 +87,4 @@
     </div>
 
 </div>
+
