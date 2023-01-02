@@ -21,7 +21,8 @@
     let txnConfirmed = false
     //const element = document.getElementById('qr-code');
   
-    let sol_rpc = "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
+    //let sol_rpc = "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
+    let sol_rpc = "https://rpc.helius.xyz/?api-key=c0a55043-481b-403d-8a8b-7a1779f49d23"
     let connection = new web3.Connection(sol_rpc);
 
     const splToken = new web3.PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
@@ -96,7 +97,7 @@
     }
 
 </script>
-
+<div class="grid h-screen">
 <div class="grid grid-flow-row justify-center">
     
     <h1 class="sm:pt-3 pt-1 font-greycliffbold text-4xl text-center text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF] ">
@@ -134,5 +135,6 @@
         </div>
     </div>
 
+</div>
 </div>
 
