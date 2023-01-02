@@ -1,8 +1,8 @@
 <script lang='ts'>
-    import { onMount, onDestroy } from "svelte";
+    import { onMount, onDestroy, } from "svelte";
     import * as web3 from '@solana/web3.js';
-    import { createQR, encodeURL} from "@solana/pay"
-    import { storeName, publicKey, pmtAmt } from '../stores.js';
+    import { createQR, encodeURL, findReference, FindReferenceError} from "@solana/pay"
+    import { storeName, publicKey, pmtAmt, mostRecentTxn} from '../stores.js';
     import * as KioskBoard from 'kioskboard';
     import englishKeypbad from "../../keyboards/kioskboard-keys-english.json"
 	import { Focus } from "focus-svelte";
@@ -20,6 +20,8 @@
     let svg_container;
     //const element = document.getElementById('qr-code');
   
+    let sol_rpc = "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
+    let connection = new web3.Connection(sol_rpc);
 
     const splToken = new web3.PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
     const reference = web3.Keypair.generate().publicKey;
@@ -29,10 +31,6 @@
     const memo = 'marked for future use';
 
     onMount(async () => {
-        
-        let sol_rpc = "https://withered-distinguished-pallet.solana-mainnet.quiknode.pro/f98c9d657e37a766115f45e72eaef0bc5836f7f6/";
-        cnx = new web3.Connection(sol_rpc);
-       
         
         let recipient = new web3.PublicKey($publicKey)
         let amount = new BigNumber($pmtAmt);
@@ -53,6 +51,26 @@
             console.log("error making QR ", e)
            
         }
+        
+        const interval = setInterval(async () => {
+            try {
+                // Check if there is any transaction for the reference
+                const signatureInfo = await findReference(connection, reference, { until: $mostRecentTxn });
+
+                console.log('Transaction confirmed', signatureInfo);
+                //notify({ type: 'success', message: 'Transaction confirmed', txid: signatureInfo.signature });
+                $mostRecentTxn = signatureInfo.signature;
+            } catch (e) {
+                if (e instanceof FindReferenceError) {
+                // No transaction found yet, ignore this error
+                return;
+                }
+                console.error('Unknown error', e)
+            }
+            }, 500)
+            return () => {
+            clearInterval(interval)
+        }
        
         //qrCode2 =decodeURIComponent(qrCode.toString()).replace('data:image/svg+xml,', '')
         
@@ -70,7 +88,7 @@
 
 <div class="grid grid-flow-row justify-center">
     
-    <h1 class="sm:pt-3 pt-1 font-greycliffbold text-4xl text-center text-[#0D7071] ">
+    <h1 class="sm:pt-3 pt-1 font-greycliffbold text-4xl text-center text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF] ">
         {$storeName}</h1>
         <div id="qr-code" >
             <qrCode/>
@@ -78,7 +96,16 @@
         
   
 </div>
-
+<div class="grid grid-flow-row justify-center pt-5 gap-3">
+    <div class="indicator justify-items-center place-self-center">
+        <div class="">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Awaiting Payment Confirmation
+        </div>
+    </div>
+</div>
 <div class="grid grid-flow-row justify-center pt-5 gap-3">
     <div class="indicator justify-items-center place-self-center">
         <div class="">
