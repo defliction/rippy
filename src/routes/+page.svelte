@@ -29,7 +29,7 @@
 </div>
 
 <div class="grid grid-flow-row justify-center pt-5 gap-3">
-    <h1 class="card-title pt-5 text-center text-md font-greycliffbold -mt-5 pb-2 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Create a Point-of-Sale terminal in 1 second!</h1>
+    <h1 class="card-title pt-5 text-center text-md font-greycliffbold -mt-5 pb-2 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Create a Point-of-Sale terminal instantly!</h1>
     <div class="indicator justify-items-center place-self-center">
         
         <div class="card w-96 bg-base-200 shadow border">

@@ -99,7 +99,7 @@
     --height="3.5rem"
 	--background="#efefef"
 	--color="currentColor"
-	--border="solid 2px #20BF55"
+	--border="solid 2px #20BF55 "
 	--border-radius="0.5rem"
 	--box-shadow="none"
 	--flex="1"
