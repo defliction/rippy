@@ -9,7 +9,7 @@
 
     let cnx;
     let keyboardRef = null;
-
+    let keyboardLoaded = false
 
 
     onMount(async () => {
@@ -109,7 +109,11 @@
 
         KioskBoard.run('.js-virtual-keyboard');
         setTimeout(() => {
-            keyboardRef.focus()
+            if (keyboardLoaded == false) {
+                keyboardRef.focus()
+                keyboardLoaded = true
+            }
+           
         }, 250)
         
     })
