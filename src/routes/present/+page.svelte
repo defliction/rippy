@@ -2,7 +2,7 @@
     import { onMount, onDestroy, } from "svelte";
     import * as web3 from '@solana/web3.js';
     import { createQR, encodeURL, findReference, FindReferenceError} from "@solana/pay"
-    import { storeName, publicKey, pmtAmt, mostRecentTxn, showWarning} from '../stores.js';
+    import { storeName, publicKey, pmtAmt, mostRecentTxn, showWarning, successArray} from '../stores.js';
     import * as KioskBoard from 'kioskboard';
     import englishKeypbad from "../../keyboards/kioskboard-keys-english.json"
 	import { Focus } from "focus-svelte";
@@ -22,7 +22,7 @@
     //const element = document.getElementById('qr-code');
   
     //let sol_rpc = "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
-    let sol_rpc = "https://rpc.helius.xyz/?api-key=c0a55043-481b-403d-8a8b-7a1779f49d23"
+    let sol_rpc = "https://withered-distinguished-pallet.solana-mainnet.quiknode.pro/f98c9d657e37a766115f45e72eaef0bc5836f7f6/";
     let connection = new web3.Connection(sol_rpc);
 
     const splToken = new web3.PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
@@ -31,6 +31,10 @@
     const label = 'Payment to ' + {$storeName};
     const message = 'marked for future use';
     const memo = 'marked for future use';
+
+    const unique = (value, index, self) => {
+        return self.indexOf(value) === index
+    }
 
     onMount(async () => {
         
@@ -64,12 +68,20 @@
                 const signatureInfo = await findReference(connection, reference, { until: untilTxn });
                 if (signatureInfo.confirmationStatus == "finalized" || signatureInfo.confirmationStatus == "confirmed") {
                     txnConfirmed = true
+                    let confirmedTxn = await connection.getParsedTransaction(signatureInfo.signature)
+                    confirmedTxn? $successArray.push(confirmedTxn) : ""
+                    console.log('Transaction ', confirmedTxn);
+                    console.log('Array', $successArray);
+                    $successArray = $successArray.filter(unique)
+                    $successArray = $successArray
+                    return
                 }
                 
                 console.log('Transaction confirmed', signatureInfo);
+                
                 //notify({ type: 'success', message: 'Transaction confirmed', txid: signatureInfo.signature });
                 $mostRecentTxn = signatureInfo.signature;
-               
+                
 
                 
             } catch (e) {
@@ -81,8 +93,8 @@
             }
             }, 250)
             return () => {
-            clearInterval(interval)
-        }
+                clearInterval(interval)
+            }
        
         //qrCode2 =decodeURIComponent(qrCode.toString()).replace('data:image/svg+xml,', '')
         

@@ -6,3 +6,4 @@ export const pmtAmt = writable();
 export const mostRecentTxn = writable("");
 export const showWarning = writable(true);
 export const fullScreen = writable(false);
+export let successArray = writable([]);
