@@ -1,7 +1,7 @@
 <script lang='ts'>
     import { onMount, onDestroy } from "svelte";
     import { goto } from '$app/navigation';
-    import { storeName, publicKey, pmtAmt } from '../stores.js';
+    import { storeName, publicKey, pmtAmt, showWarning } from '../stores.js';
     
 
     onMount(async () => {
@@ -26,7 +26,12 @@
         
     <div class="card-body px-6 pb-4 text-center ">
         <h1 class="align-center text-xl font-greycliffbold -mt-5 pb-1 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Settings</h1>
-     
+        <div class="form-control">
+            <label class="cursor-pointer label">
+              <span class="label-text">Show no custody warning</span>
+              <input type="checkbox" bind:checked={$showWarning} on:change={()=>(console.log($showWarning))} class="checkbox checkbox-success" />
+            </label>
+          </div>
     </div>
 
 

@@ -29,12 +29,13 @@
 </div>
 
 <div class="grid grid-flow-row justify-center pt-5 gap-3">
+    <h1 class="card-title pt-5 text-center text-md font-greycliffbold -mt-5 pb-2 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Create a Point-of-Sale app in 1 second!</h1>
     <div class="indicator justify-items-center place-self-center">
         
         <div class="card w-96 bg-base-200 shadow border">
             <div class="card-body px-6 pb-4">
-                <h1 class="card-title text-center text-md font-greycliffbold -mt-5 pb-2 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Create a Point-of-Sale app in 1 second!</h1>
-                <p class="text-md font-greycliffmed text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Enter your merchant details</p>
+                
+                <p class="text-md -mt-5 font-greycliffmed text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Enter your merchant details</p>
                 
                 <input bind:value={$storeName} type="text" placeholder="Store name e.g. Benedict's Burritos" class="input input-sm input-bordered input-accent w-full max-w-xs" /> 
                 <input bind:value={$publicKey} type="text" placeholder="Merchant wallet address (Solana Public Key)" class="input input-sm input-bordered input-accent w-full max-w-xs" />    

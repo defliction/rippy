@@ -2,7 +2,7 @@
     import { onMount, onDestroy, } from "svelte";
     import * as web3 from '@solana/web3.js';
     import { createQR, encodeURL, findReference, FindReferenceError} from "@solana/pay"
-    import { storeName, publicKey, pmtAmt, mostRecentTxn} from '../stores.js';
+    import { storeName, publicKey, pmtAmt, mostRecentTxn, showWarning} from '../stores.js';
     import * as KioskBoard from 'kioskboard';
     import englishKeypbad from "../../keyboards/kioskboard-keys-english.json"
 	import { Focus } from "focus-svelte";
@@ -112,20 +112,22 @@
     <div class="indicator justify-items-center place-self-center">
         <div class="">
             {#if !txnConfirmed}
+            <span class="text-purple-400">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Awaiting Payment Confirmation
+              Awaiting Payment Confirmation</span>
             {:else}
+            <span class="text-green-500">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              Transaction Confirmed!
+             Transaction Confirmed!</span>
             {/if}
         </div>
     </div>
 </div>
-<div class="grid grid-flow-row justify-center pt-5 gap-3 pb-20">
+<div class="grid grid-flow-row justify-center pt-5 pb-6">
     <div class="indicator justify-items-center place-self-center">
         <div class="">
             <button on:click={cancel} class="btn normal-case btn-lg bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-6 h-6 ">
@@ -136,5 +138,18 @@
     </div>
 
 </div>
+{#if $showWarning}
+<div class="grid grid-flow-row justify-center pb-20">
+    <div class="indicator justify-items-center place-self-center">
+        <div class="text-orange-500">
+           
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 inline">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m0-10.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.75c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.57-.598-3.75h-.152c-3.196 0-6.1-1.249-8.25-3.286zm0 13.036h.008v.008H12v-.008z" />
+              </svg>
+              This device does not store any crypto.
+        </div>
+    </div>
+</div>
+{/if}
 </div>
 
