@@ -29,7 +29,7 @@
 </div>
 
 <div class="grid grid-flow-row justify-center pt-5 gap-3">
-    <h1 class="card-title pt-5 text-center text-md font-greycliffbold -mt-5 pb-2 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Create a Point-of-Sale app in 1 second!</h1>
+    <h1 class="card-title pt-5 text-center text-md font-greycliffbold -mt-5 pb-2 text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Create a Point-of-Sale terminal in 1 second!</h1>
     <div class="indicator justify-items-center place-self-center">
         
         <div class="card w-96 bg-base-200 shadow border">
@@ -43,7 +43,7 @@
                     <button on:click={createStore} class="btn normal-case btn-sm bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]">Create Store</button>
                 </div>
                 <div class="text-md -mb-5 text-center font-greycliffmed text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Powered by
-                    <svg class= "inline w-16 h-16" viewBox="0 0 86 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg class= "inline w-16 h-16 pb-1" viewBox="0 0 86 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M77.1128 22.0065L72.1479 11.1583H68.027L75.1197 25.7956L74.9921 26.2364C74.8144 26.8223 74.4395 27.3282 73.9311 27.6679C73.4228 28.0076 72.8125 28.1599 72.2046 28.0989C71.493 28.0923 70.7948 27.9039 70.1761 27.5515L69.5165 30.6865C70.4684 31.0797 71.4871 31.2849 72.5167 31.2908C75.3538 31.2908 77.0702 30.2458 78.4888 27.1676L86 11.1583H82.021L77.1128 22.0065Z" fill="black"/>
                         <path d="M42.0235 5.99011H30.1219V25.9306H34.0229V18.6013H42.0235C46.3713 18.6013 49.2297 16.4047 49.2297 12.2957C49.2297 8.18677 46.3713 5.99011 42.0235 5.99011ZM41.8107 15.1109H34.0087V9.42372H41.8107C44.0662 9.42372 45.357 10.4545 45.357 12.2673C45.357 14.0801 44.0662 15.1109 41.8107 15.1109Z" fill="black"/>
                         <path d="M65.539 22.1487V16.1416C65.539 12.5872 62.9928 10.746 58.6236 10.746C55.0773 10.746 51.9706 12.4024 51.0982 14.9473L54.3042 16.0848C54.7794 14.8123 56.432 13.8739 58.4889 13.8739C60.9288 13.8739 61.9572 14.8691 61.9572 16.0848V16.4758L56.1554 17.1156C52.8147 17.471 50.6159 18.971 50.6159 21.6511C50.6159 24.587 53.1339 26.1652 56.4745 26.1652C58.6278 26.2325 60.7248 25.4691 62.3331 24.0325C62.9147 25.4543 63.5105 26.4069 67.4754 25.9022V22.9307C65.8866 23.3145 65.539 22.9307 65.539 22.1487ZM61.9927 20.2435C61.9927 22.1771 59.2903 23.2008 57.0278 23.2008C55.3042 23.2008 54.2687 22.6463 54.2687 21.5444C54.2687 20.4425 55.1198 20.0444 56.7653 19.8525L62.0069 19.2411L61.9927 20.2435Z" fill="black"/>
