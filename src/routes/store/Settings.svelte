@@ -29,7 +29,7 @@
         <div class="form-control">
             <label class="cursor-pointer label">
               <span class="label-text">Show no custody warning</span>
-              <input type="checkbox" bind:checked={$showWarning} on:change={()=>(console.log($showWarning))} class="checkbox checkbox-success" />
+              <input type="checkbox" bind:checked={$showWarning} class="checkbox checkbox-success" />
             </label>
           </div>
     </div>

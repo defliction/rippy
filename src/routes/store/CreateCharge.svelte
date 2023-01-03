@@ -75,7 +75,7 @@
        
         }
         $pmtAmt = parseFloat( $pmtAmt ).toLocaleString("en", {minimumFractionDigits:2, maximumFractionDigits: 4 })
-        console.log(parseFloat( $pmtAmt ).toLocaleString("en", { maximumFractionDigits: 4 }))
+        //console.log(parseFloat( $pmtAmt ).toLocaleString("en", { maximumFractionDigits: 4 }))
        
     }
 </script>

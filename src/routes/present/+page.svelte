@@ -139,7 +139,7 @@
 
 </div>
 {#if $showWarning}
-<div class="grid grid-flow-row justify-center pb-20">
+<div class="grid grid-flow-row justify-center">
     <div class="indicator justify-items-center place-self-center">
         <div class="text-orange-500">
            
@@ -151,5 +151,8 @@
     </div>
 </div>
 {/if}
+<div class="grid pb-20">
+
+</div>
 </div>
 
