@@ -18,7 +18,9 @@
         //document.body.setAttribute('tabindex', '-1');
        
     })
-  
+    async function reset() {
+        goto('/', { state: { foo: 'bar' } });
+    }
     
 </script>
 
@@ -32,7 +34,11 @@
               <input type="checkbox" bind:checked={$showWarning} class="checkbox checkbox-success" />
             </label>
           </div>
+          <div class="card-actions justify-center">
+            <button on:click={reset} class="btn normal-case btn-sm bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]">Reset Store</button>
+        </div>
     </div>
+    
 
 
     
