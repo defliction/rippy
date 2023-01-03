@@ -125,7 +125,7 @@
         </div>
     </div>
 </div>
-<div class="grid grid-flow-row justify-center pt-5 gap-3">
+<div class="grid grid-flow-row justify-center pt-5 gap-3 pb-20">
     <div class="indicator justify-items-center place-self-center">
         <div class="">
             <button on:click={cancel} class="btn normal-case btn-lg bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline w-6 h-6 ">

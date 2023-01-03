@@ -6,6 +6,7 @@
 	import { Focus } from "focus-svelte";
     import { goto } from '$app/navigation';
     import CreateCharge from "./CreateCharge.svelte";
+    import Settings from "./Settings.svelte";
 
     let cnx;
   
@@ -55,6 +56,8 @@
 
     {#if activeTab == 1}
         <CreateCharge/>
+    {:else if activeTab == 3}
+        <Settings/>
     {/if}
 </div>
 

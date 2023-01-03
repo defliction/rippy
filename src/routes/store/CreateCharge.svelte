@@ -9,9 +9,13 @@
     const keys = [  { row: 0, value: "1"}, { row: 0, value: "2"}, { row: 0, value: "3"}, 
                     { row: 1, value: "4"}, { row: 1, value: "5"}, { row: 1, value: "6"},
                     { row: 2, value: "7"}, { row: 2, value: "8"}, { row: 2, value: "9"},
-                    { row: 3, value: "<" }, { row: 3, value: "0"}, { row: 3, value: "clear"}];
+                    { row: 3, value: "<" }, { row: 3, value: "0"}, { row: 3, value: "."}];
     let keyboardRef = null;
     let keyboardLoaded = false
+    let maxDecimals = 4
+    let left = ""
+    let right = ""
+    let decimalsActive = false
 
     onMount(async () => {
         
@@ -35,15 +39,43 @@
     const onKeydown = (event) => {
        
         if (event.detail == "<") {
-            $pmtAmt = Number($pmtAmt.toString().slice(0, -1))
+            if (!decimalsActive) {
+                left = left.slice(0, -1)
+            }
+            else {
+                if (right == "") {
+                    decimalsActive = false
+                }
+                else {
+                    right = right.slice(0, -1)
+                }
+                
+            }
+            
         }
-        else if (event.detail.toLowerCase() == "clear") {
-            $pmtAmt = 0
+        else if (event.detail == ".") {
+            decimalsActive = true
         }
         else {
-            $pmtAmt += event.detail
+            if (!decimalsActive) {
+                left += event.detail
+            }
+            else {
+
+                right.length < 4? right += event.detail : ""
+            }
+           
         }
-                
+        if (right.length > 2){
+            $pmtAmt = Number(left.toString()+"."+right.toString()).toFixed(4)
+        }
+        else {
+            $pmtAmt = Number(left.toString()+"."+right.toString()).toFixed(2)
+        }
+        if (left == "") {
+            $pmtAmt = Number("0").toFixed(2)
+        }
+       
         
         
     }
