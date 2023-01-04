@@ -69,18 +69,29 @@
                 if (signatureInfo.confirmationStatus == "finalized" || signatureInfo.confirmationStatus == "confirmed") {
                     txnConfirmed = true
                     let confirmedTxn = await connection.getParsedTransaction(signatureInfo.signature)
-                    confirmedTxn? $successArray.push(confirmedTxn) : ""
+                    if (confirmedTxn) {
+                        var new_entry = {
+                            "timestamp" : confirmedTxn.blockTime,
+                            "txid": confirmedTxn.transaction.signatures[0],
+                            "uiAmount" : confirmedTxn.transaction.message.instructions[1].parsed.info.tokenAmount.uiAmount
+                        }
+                        //item.transaction.message.accountKeys.flatMap(k => k.pubkey.toBase58())
+                        if(!$successArray.flatMap(k => k.txid).includes(new_entry.txid)) {
+                            $successArray.push(new_entry)
+                        }
+                       
+                    }
+                   
                     console.log('Transaction ', confirmedTxn);
                     console.log('Array', $successArray);
                     $successArray = $successArray.filter(unique)
                     $successArray = $successArray
+                    console.log('Transaction confirmed', signatureInfo);
+                    $mostRecentTxn = signatureInfo.signature;
+                
                     return
                 }
-                
-                console.log('Transaction confirmed', signatureInfo);
-                
                 //notify({ type: 'success', message: 'Transaction confirmed', txid: signatureInfo.signature });
-                $mostRecentTxn = signatureInfo.signature;
                 
 
                 

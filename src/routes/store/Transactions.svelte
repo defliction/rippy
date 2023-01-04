@@ -39,12 +39,12 @@
           <tbody>
             {#each $successArray as item, i}
             <tr>
-              <td>{dayjs.unix(item.blockTime).format("YYYY-MM-DD HH:mm:ss")}</td> 
+              <td>{dayjs.unix(item.timestamp).format("YYYY-MM-DD HH:mm:ss")}</td> 
               <td class="text-left">
-                <a class="hover:underline hover:decoration-primary" href="https://solscan.io/tx/{item.transaction.signatures[0]}" target="_blank">
-                {item.transaction.signatures[0].substring(0,4)}...</a>
+                <a class="hover:underline hover:decoration-primary" href="https://solscan.io/tx/{item.txid}" target="_blank">
+                {item.txid.substring(0,4)}...</a>
                 </td> 
-              <td class="text-right">{item.transaction.message.instructions[1].parsed.info.tokenAmount.uiAmount}</td> 
+              <td class="text-right">{item.uiAmount}</td> 
             </tr>
             {/each}
           </tbody> 
