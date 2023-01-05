@@ -5,17 +5,32 @@
     import { goto } from '$app/navigation';
 
     let cnx;
+    let invalidKey = false;
 
     onMount(async () => {
         
-        let sol_rpc = "https://withered-distinguished-pallet.solana-mainnet.quiknode.pro/f98c9d657e37a766115f45e72eaef0bc5836f7f6/";
+        let sol_rpc = process.env.SOLANA_RPC? process.env.SOLANA_RPC : "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
         cnx = new web3.Connection(sol_rpc);
         
     })
 
     async function createStore() {
-        console.log($storeName, $publicKey)
-        goto('/store', { state: { foo: 'bar' } });
+        try {
+            $publicKey = $publicKey.trim()
+            //console.log($storeName, $publicKey)
+            
+            if (web3.PublicKey.isOnCurve($publicKey) == true) {
+                invalidKey = false;
+                goto('/store', { state: { foo: 'bar' } });
+                
+            }
+            else {
+                invalidKey = true
+            }
+        } catch(e) {
+            invalidKey = true;
+        }
+        
     }
 
 </script>
@@ -37,8 +52,13 @@
                 
                 <p class="text-md -mt-5 font-greycliffmed text-transparent bg-clip-text bg-gradient-to-br from-[#20BF55] to-[#01BAEF]">Enter your merchant details</p>
                 
-                <input bind:value={$storeName} type="text" placeholder="Store name e.g. Benedict's Burritos" class="input input-sm input-bordered input-accent w-full max-w-xs" /> 
+                <input bind:value={$storeName} type="text" placeholder="Store name e.g. Bruno's Burritos" class="input input-sm input-bordered input-accent w-full max-w-xs" /> 
                 <input bind:value={$publicKey} type="text" placeholder="Merchant wallet address (Solana Public Key)" class="input input-sm input-bordered input-accent w-full max-w-xs" />    
+                {#if invalidKey}
+                    <span class="text-center text-sm text-warning">Invalid key - please enter a valid wallet address
+
+                    </span>
+                {/if}
                 <div class="card-actions justify-center">
                     <button on:click={createStore} class="btn normal-case btn-sm bg-gradient-to-br border-accent hover:border-accent from-[#20BF55] to-[#01BAEF]">Create Store</button>
                 </div>

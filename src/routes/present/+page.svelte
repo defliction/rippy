@@ -21,16 +21,16 @@
     let txnConfirmed = false
     //const element = document.getElementById('qr-code');
   
-    //let sol_rpc = "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
-    let sol_rpc = "https://withered-distinguished-pallet.solana-mainnet.quiknode.pro/f98c9d657e37a766115f45e72eaef0bc5836f7f6/";
+
+    let sol_rpc = process.env.SOLANA_RPC? process.env.SOLANA_RPC : "https://solana-mainnet.g.alchemy.com/v2/AtE9_yJOMYOrEYcu5EpkPPvEv-jVKafC";
     let connection = new web3.Connection(sol_rpc);
 
     const splToken = new web3.PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
     const reference = web3.Keypair.generate().publicKey;
-
-    const label = 'Payment to ' + {$storeName};
-    const message = 'marked for future use';
-    const memo = 'marked for future use';
+    let storeText = $storeName? $storeName : "store"
+    const label = 'Payment to ' + storeText
+    const message = 'Thank you for your payment!';
+    const memo = 'rippy.xyz';
 
     const unique = (value, index, self) => {
         return self.indexOf(value) === index
