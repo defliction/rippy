@@ -1,38 +1,13 @@
-# create-svelte
+# rippy - create an instant Point-of-Sale app powered by Solana Pay
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+We believe Solana Pay has the ability to drive significant adoption to Solana and change the course for many merchants. We believe in open-source software and will be updating and maintaining this codebase with new features. We believe merchants should be able to choose an open-source alternative when considering a Solana Pay point-of-sale.
 
-## Creating a project
+The app is simple to use and is based on the Solana Pay specification which is implemented by all your familiar wallet apps that customers are likely to use. Learn more about Solana Pay here https://solanapay.com
 
-If you're seeing this, you've probably already done this step. Congrats!
+The rippy app is live for use here: https://rippy.xyz
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+# Stake with Riparian!
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+If you like what we're doing and building please consider staking with us! We're bringing open-source software and new user friendly education paired with  high quality infrastructure to validate the network. The goal is to contribute growth to the utility of SOL and make sure you earn optimized taking rewards. Search "**Riparian**" in your favourite wallet app - visit our website to see our other apps and regularly updated with more information.
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Visit us here: https://riparian.one
