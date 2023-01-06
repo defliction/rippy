@@ -16,7 +16,7 @@
 
     onMount(async () => {
         
-        let sol_rpc = "https://withered-distinguished-pallet.solana-mainnet.quiknode.pro/f98c9d657e37a766115f45e72eaef0bc5836f7f6/";
+        let sol_rpc = process.env.SOLANA_RPC? process.env.SOLANA_RPC : "https://api.mainnet-beta.solana.com";
         cnx = new web3.Connection(sol_rpc);
        
 
