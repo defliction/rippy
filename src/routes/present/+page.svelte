@@ -2,7 +2,7 @@
     import { onMount, onDestroy, } from "svelte";
     import * as web3 from '@solana/web3.js';
     import { createQR, encodeURL, findReference, FindReferenceError} from "@solana/pay"
-    import { storeName, publicKey, pmtAmt, mostRecentTxn, showWarning, successArray} from '../stores.js';
+    import { storeName, publicKey, pmtAmt, mostRecentTxn, showWarning, successArray, mints, selectedMint} from '../stores.js';
     import * as KioskBoard from 'kioskboard';
     import englishKeypbad from "../../keyboards/kioskboard-keys-english.json"
 	import { Focus } from "focus-svelte";
@@ -24,8 +24,8 @@
 
     let sol_rpc = process.env.SOLANA_RPC? process.env.SOLANA_RPC : "https://api.mainnet-beta.solana.com";
     let connection = new web3.Connection(sol_rpc);
-
-    const splToken = new web3.PublicKey('EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v');
+    let currentMint = $mints.filter(item => item.name == $selectedMint)
+    let splToken = new web3.PublicKey(currentMint[0].mint);
     const reference = web3.Keypair.generate().publicKey;
     let storeText = $storeName? $storeName : "store"
     const label = 'Payment to ' + storeText
@@ -37,8 +37,9 @@
     }
 
     onMount(async () => {
-        
+        console.log("mint", currentMint[0].mint)
         let recipient = new web3.PublicKey($publicKey)
+        
         let amount = new BigNumber($pmtAmt);
         let url = ($publicKey) ? encodeURL({ recipient, amount, splToken, reference, label, message, memo }) : null;
         
