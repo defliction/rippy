@@ -4,7 +4,7 @@
     import { storeName, publicKey } from './stores';
     import { goto } from '$app/navigation';
 
-  
+    let cnx;
     let invalidKey = false;
 
     onMount(async () => {
